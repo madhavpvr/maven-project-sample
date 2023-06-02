@@ -1,0 +1,12 @@
+pipeline {
+    agent {label "build_server"}
+    stages {
+        stage("This is sample build from maven using jenkins pipeline") {
+            steps {
+                sh 'mvn clean'
+                sh 'mvn install'
+            }
+        }
+        
+    }
+}
