@@ -27,6 +27,7 @@ pipeline {
                     print("unstashing the copied build package file to destination directory")
                     dir("/home/ubuntu/tomcat/webapps/") {
                     unstash(name: "build_package")
+                    sh 'mv target/webapp.war webapp.war'
                     }                    
                 }
             }
