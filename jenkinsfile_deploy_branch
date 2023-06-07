@@ -6,7 +6,7 @@ pipeline {
                 //deleting old packages from webapps folder
                 print("deleting the old packages from webapps folder")
                 sh 'rm -rf webapp.war'
-                sh 'aws s3://mavenbuildcode/webapp.war /home/ubuntu/tomcat/webapps/'
+                sh 'aws s3 cp s3://mavenbuildcode/webapp.war /home/ubuntu/tomcat/webapps/'
             }
         }
     }
