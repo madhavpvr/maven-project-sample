@@ -5,8 +5,8 @@ pipeline {
             steps {
                 node("build_server") {
                     //deleting and creating war package
-                    print("deleting the old maven package")
-                    sh 'mvn clean'
+                    //print("deleting the old maven package")
+                    //sh 'mvn clean'
                     print("creating new maven war package")
                     sh 'mvn install'
                     //stashing the war package
