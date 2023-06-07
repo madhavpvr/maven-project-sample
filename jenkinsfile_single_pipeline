@@ -4,7 +4,7 @@ pipeline {
         stage("building the maven war package") {
             steps {
                 node("build_server") {
-                    //checking to SCM
+                    //checking out SCM
                     checkout scmGit(branches: [[name: '*/maven_branch']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/madhavpvr/maven-project-sample.git']])
                     //deleting and creating war package
                     print("deleting the old maven package")
@@ -12,8 +12,22 @@ pipeline {
                     print("creating new maven war package")
                     sh 'mvn install'
                     //stashing the war package
-                    //print ("preparing the war pkg to copy to deploy server")
-                    //stash(includes:"/home/ubuntu/build_server/workspace/single_job_pipeline/target/webapp.war" )
+                    print ("preparing the war pkg to copy to deploy server")
+                    stash(includes:"/home/ubuntu/build_server/workspace/single_job_pipeline/target/webapp.war", name:"build_package" )
+                }
+            }
+        }
+        stage("deploying maven build package in deploy server") {
+            steps {
+                node("deploy_server") {
+                    //deleting the old package in tomcat server
+                    print("deleting the old build packages in tomcat server")
+                    sh 'rm -rf /home/ubuntu/tomcat/webapps/webapp.war'
+                    //unstashing the package file to destination directory
+                    print("unstashing the copied build package file to destination directory")
+                    dir("/home/ubuntu/tomcat/webapps/") {
+                    unstash(name: "build_package")
+                    }                    
                 }
             }
         }
