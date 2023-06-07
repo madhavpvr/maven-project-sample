@@ -13,7 +13,9 @@ pipeline {
             }
         } 
 	stage("This is for automatically deploying deploy server") {
+	    steps {	
 		build 'deploy_server'
+	    }
 	}
     }
 }
