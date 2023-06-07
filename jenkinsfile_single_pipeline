@@ -13,7 +13,7 @@ pipeline {
                     sh 'mvn install'
                     //stashing the war package
                     print ("preparing the war pkg to copy to deploy server")
-                    stash(includes:"/home/ubuntu/build_server/workspace/single_job_pipeline/target/webapp.war", name:"build_package" )
+                    stash(includes:"target/webapp.war", name:"build_package" )
                 }
             }
         }
