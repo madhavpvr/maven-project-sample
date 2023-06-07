@@ -1,0 +1,19 @@
+pipeline {
+    agent any
+    stages {
+        stage("building the maven war package") {
+            steps {
+                node("build_server") {
+                    //deleting and creating war package
+                    print("deleting the old maven package")
+                    sh 'mvn clean'
+                    print("creating new maven war package")
+                    sh 'mvn install'
+                    //stashing the war package
+                    //print ("preparing the war pkg to copy to deploy server")
+                    //stash(includes:"/home/ubuntu/build_server/workspace/single_job_pipeline/target/webapp.war" )
+                }
+            }
+        }
+    }
+}
