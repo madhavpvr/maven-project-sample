@@ -4,9 +4,13 @@ pipeline {
         stage("building the maven war package") {
             steps {
                 node("build_server") {
+                    //checking to SCM
+                    checkout scmGit(branches: [[name: '*/maven_branch']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/madhavpvr/maven-project-sample.git']])
+                    print("downloading source code from github")
+                    sh 'git clone '
                     //deleting and creating war package
-                    //print("deleting the old maven package")
-                    //sh 'mvn clean'
+                    print("deleting the old maven package")
+                    sh 'mvn clean'
                     print("creating new maven war package")
                     sh 'mvn install'
                     //stashing the war package
