@@ -1,0 +1,13 @@
+pipeline {
+    agent{label "deploy_server"}
+    stages {
+        stage("deploying build package from S3 bucket") {
+            steps {
+                //deleting old packages from webapps folder
+                print("deleting the old packages from webapps folder")
+                sh 'rm -rf webapp.war'
+                sh 'aws s3://mavenbuildcode/webapp.war /home/ubuntu/tomcat/webapps/'
+            }
+        }
+    }
+}
