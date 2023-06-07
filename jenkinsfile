@@ -11,6 +11,9 @@ pipeline {
             steps {
                 sh 'aws s3 cp /home/ubuntu/build_server/workspace/build_server/target/webapp.war s3://mavenbuildcode'
             }
-        }
+        } 
+	stage("This is for automatically deploying deploy server") {
+		build 'deploy_server'
+	}
     }
 }
