@@ -9,7 +9,7 @@ pipeline {
         }
         stage("This code is copied to aws s3 by using awscli commands") {
             steps {
-                sh 'aws s3 cp /home/ubuntu/sample-project/workspace/build_server/target/webapp.war s3://samplemavenbuilldcode'
+                sh 'aws s3 cp /home/ubuntu/build_server/workspace/build_server/target/webapp.war s3://samplemavenbuilldcode'
             }
         }
     }
